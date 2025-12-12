@@ -1,0 +1,55 @@
+{
+  "factura": {
+    "razonSocialEmisor": "ROMERO CANCHARI JOSE LUIS",
+    "direccionEmisor": "CAL. 16 APV. RESID. LAS AMERICAS MZA. Z LOTE. 21",
+    "departamento": "LIMA",
+    "provincia": "LIMA",
+    "distrito": "ATE",
+    "rucEmisor": 10431552898,
+    "numeroFactura": "E001-131",
+    "fechaEmision": "30/11/2025",
+    "razonSocialReceptor": "EXACTA OPERADOR LOGISTICO SOCIEDAD ANONIMA CERRADA",
+    "rucReceptor": 20517650871,
+    "direccionReceptorFactura": "AV. LOS ALGARROBOS COO. LAS VERTIENTES MZA. H LOTE. 4A CRUCE DE AVENIDA EL SOL Y CALLE 7 LIMA LIMA VILLA EL SALVADOR",
+    "direccionCliente": "AV. LOS ALGARROBOS - COO. LAS VERTIENTES MZA. H LOTE. 4A CRUCE DE AVENIDA EL SOL Y CALLE 7 LIMA-LIMA-VILLA EL SALVADOR",
+    "fechaContable": "30/11/2025",
+    "tipoMoneda": "SOLES",
+    "observacion": "OPERACIÓN SUJETA AL SPOD CTA.CTE BN N.00042038342",
+    "formaPago": "Crédito",
+    "lineaFactura": [
+      {
+        "cantidad": 1.0,
+        "unidadMedida": "UNIDAD",
+        "descripcion": "28-11-2025-046 SAGA FALABELLA S A LIMA AREQUIPA 90M3 PENDIENTE ROMERO CANCHARI JOSE LUIS BVZ870",
+        "valorUnitario": 4200.0
+      }
+    ],
+    "ventaGratuita": 0.0,
+    "descripcionImporteTotal": "CUATRO MIL NOVECIENTOS CINCUENTA Y SEIS Y 00/100 SOLES",
+    "subtotalVenta": 4200.0,
+    "anticipo": 0.0,
+    "descuento": 0.0,
+    "valorVenta": 4200.0,
+    "isc": 0.0,
+    "igv": 756.0,
+    "otrosCargos": 0.0,
+    "otrosTributos": 0.0,
+    "montoRedondeo": 0.0,
+    "importeTotal": 4956.0,
+    "montoNetoPendientePago": 4757.76,
+    "totalCuota": 2,
+    "cuotas": [
+      {
+        "numero": 1,
+        "fechaVencimiento": "01/12/2025",
+        "monto": 2100.0
+      },
+      {
+        "numero": 2,
+        "fechaVencimiento": "28/12/2025",
+        "monto": 2657.76
+      }
+    ]
+  },
+  "validacion": []
+}

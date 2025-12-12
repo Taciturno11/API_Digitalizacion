@@ -1,0 +1,51 @@
+{
+  "rucEmisor": "10431552898",
+  "tipoDocEmisor": "6",
+  "numeroFactura": "E001-131",
+  "razonSocialEmisor": "ROMERO CANCHARI JOSE LUIS",
+  "direccionEmisor": "CAL. 16 APV. RESID. LAS AMERICAS MZA. Z LOTE. 21",
+  "direccionCliente": "CRUCE DE AVENIDA EL SOL Y CALLE 7 LIMA-LIMA-VILLA EL",
+  "ubigeoEmisor": "ATE-LIMA-LIMA",
+  "rucReceptor": "20517650871",
+  "tipoDocReceptor": "6",
+  "razonSocialReceptor": "EXACTA OPERADOR LOGISTICO SOCIEDAD ANONIMA CERRADA",
+  "direccionReceptor": "CRUCE DE AVENIDA EL SOL Y CALLE 7 LIMA LIMA VILLA EL SALVADOR",
+  "fechaEmision": "30/11/2025",
+  "horaEmision": "",
+  "formaPago": "Crédito",
+  "tipoMoneda": "SOLES",
+  "observacion": "OPERACIÓN SUJETA AL SPOD CTA.CTE BN N.00042038342",
+  "lineasFactura": [
+    {
+      "cantidad": 1.0,
+      "unidadMedida": "UNIDAD",
+      "descripcion": "28-11-2025-046 SAGA FALABELLA S. A LIMA AREQUIPA 90M3",
+      "valorUnitario": 4200.0,
+      "valorVenta": 4200.0,
+      "precioVenta": 4956.0,
+      "igv": 756.0
+    }
+  ],
+  "valorVenta": 4200.0,
+  "precioVenta": 4200.0,
+  "igv": 756.0,
+  "isc": 0.0,
+  "otrosTributos": 0.0,
+  "otrosCargos": 0.0,
+  "descuentos": 0.0,
+  "anticipos": 0.0,
+  "importeTotal": 4956.0,
+  "operacionesGratuitas": 0.0,
+  "montoPendiente": 4757.76,
+  "totalCuotas": 2,
+  "cuotas": [
+    {
+      "fechaCuota": "01/12/2025",
+      "montoCuota": 2100.0
+    },
+    {
+      "fechaCuota": "28/12/2025",
+      "montoCuota": 2657.76
+    }
+  ]
+}

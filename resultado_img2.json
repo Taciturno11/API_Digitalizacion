@@ -1,0 +1,55 @@
+{
+  "rucEmisor": "10431001111",
+  "tipoDocEmisor": "6",
+  "numeroFactura": "E221-231",
+  "razonSocialEmisor": "MARTIN VICENTE NAUCA GAMBOA",
+  "direccionEmisor": "Ayacucho 443 - Magdalena del Mar",
+  "direccionCliente": "CRUCE DE AVENIDA EL SOL Y CALLE 7 LIMA-LIMA-LOS OLIVOS",
+  "ubigeoEmisor": "Magdalena-LIMA-LIMA",
+  "rucReceptor": "20517650111",
+  "tipoDocReceptor": "6",
+  "razonSocialReceptor": "EXACTA EMPRESELMO LOGISTICO SOCIEDAD ANONIMA CERRADA",
+  "direccionReceptor": "CRUCE DE AVENIDA BRASIL Y CALLE 7 LIMA LIMA MAGADALENA DEL MAR",
+  "fechaEmision": "31/12/2025",
+  "horaEmision": "",
+  "formaPago": "Contado",
+  "tipoMoneda": "DOLARES",
+  "observacion": "OPERACIÓN SUJETA DEL PODER CTA.CTE BN N.00042038111",
+  "lineasFactura": [
+    {
+      "cantidad": 3.0,
+      "unidadMedida": "UNIDAD",
+      "descripcion": "28-11-2025-046 TIENDA RYPLEY Y ASOCIADOS DE AREQUIPA 28",
+      "valorUnitario": 6200.0,
+      "valorVenta": 18600.0,
+      "precioVenta": 21948.0,
+      "igv": 3348.0
+    }
+  ],
+  "valorVenta": 4200.0,
+  "precioVenta": 4200.0,
+  "igv": 756.0,
+  "isc": 0.0,
+  "otrosTributos": 0.0,
+  "otrosCargos": 0.0,
+  "descuentos": 0.0,
+  "anticipos": 0.0,
+  "importeTotal": 4956.0,
+  "operacionesGratuitas": 100.0,
+  "montoPendiente": 4757.76,
+  "totalCuotas": 3,
+  "cuotas": [
+    {
+      "fechaCuota": "01/12/2025",
+      "montoCuota": 2100.0
+    },
+    {
+      "fechaCuota": "28/12/2025",
+      "montoCuota": 2657.76
+    },
+    {
+      "fechaCuota": "31/12/2025",
+      "montoCuota": 2500.0
+    }
+  ]
+}

@@ -4,9 +4,9 @@ import os
 import uuid
 
 # --- IMPORTAMOS LOS MOTORES ---
-from procesador_pdf import procesar_factura_pdf
+from procesador_pdf_v2 import procesar_factura_pdf  # Usando v2 con estructura por secciones
 from procesador_xml import procesar_factura_xml
-from procesador_imagen import procesar_factura_img
+from procesador_imagen import procesar_factura_img  # Usando docTR OCR - mejor precisión
 
 app = FastAPI(title="API Digitalización Facturas")
 
@@ -39,16 +39,16 @@ async def procesar_documento(file: UploadFile = File(...)):
         resultado = {}
         
         if extension == "pdf":
-            print(f"📄 Procesando PDF: {filename}")
+            print(f"[PDF] Procesando: {filename}")
             resultado = procesar_factura_pdf(nombre_temporal)
             
         elif extension == "xml":
-            print(f"🧩 Procesando XML: {filename}")
+            print(f"[XML] Procesando: {filename}")
             # AQUI ESTA EL CAMBIO: Llamamos al motor XML real
             resultado = procesar_factura_xml(nombre_temporal)
             
         elif extension in ["png", "jpg", "jpeg"]:
-            print(f"🖼️ Procesando Imagen: {filename}")
+            print(f"[IMG] Procesando: {filename}")
             resultado = procesar_factura_img(nombre_temporal)
 
         return resultado

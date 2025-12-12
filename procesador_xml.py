@@ -3,6 +3,9 @@ import json
 import os
 import re
 
+# Importar catálogos SUNAT para conversión de códigos
+from catalogos_sunat import convertir_unidad_medida, convertir_moneda
+
 # --- MAPA DE NAMESPACES (Clave para que Python entienda el XML) ---
 ns = {
     'cbc': 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
@@ -94,7 +97,11 @@ def procesar_factura_xml(ruta_archivo):
         notas = root.findall('cbc:Note', ns)
         for nota in notas:
             if nota.text and "SON:" in nota.text:
-                descripcion_importe_total = nota.text.strip()
+                # Quitar prefijo "SON:" y espacios extra
+                texto_son = nota.text.strip()
+                texto_son = re.sub(r'^SON:\s*', '', texto_son, flags=re.IGNORECASE)
+                # Limpiar espacios múltiples
+                descripcion_importe_total = re.sub(r'\s+', ' ', texto_son).strip()
                 break
 
         # Observaciones
@@ -144,13 +151,16 @@ def procesar_factura_xml(ruta_archivo):
         
         for line in invoice_lines:
             cantidad = obtener_valor(line, 'cbc:InvoicedQuantity', float)
-            unidad = line.find('cbc:InvoicedQuantity', ns).get('unitCode')
+            unidad_codigo = line.find('cbc:InvoicedQuantity', ns).get('unitCode')
             descripcion = obtener_valor(line, 'cac:Item/cbc:Description')
             valor_unitario = obtener_valor(line, 'cac:Price/cbc:PriceAmount', float)
             
+            # Convertir código de unidad (NIU) a nombre legible (UNIDAD) usando Catálogo N°3
+            unidad_nombre = convertir_unidad_medida(unidad_codigo)
+            
             lista_lineas.append({
                 "cantidad": cantidad,
-                "unidadMedida": unidad if unidad else "UNIDAD",
+                "unidadMedida": unidad_nombre,  # Ya convertido a nombre legible
                 "descripcion": descripcion,
                 "valorUnitario": valor_unitario
             })
@@ -174,7 +184,7 @@ def procesar_factura_xml(ruta_archivo):
                 "direccionReceptorFactura": direccion_maestra,
                 "direccionCliente": direccion_maestra,
                 
-                "tipoMoneda": "SOLES" if tipo_moneda == "PEN" else tipo_moneda,
+                "tipoMoneda": convertir_moneda(tipo_moneda),  # PEN -> SOLES usando Catálogo N°2
                 "observacion": obs_final,
                 "formaPago": forma_pago,
                 

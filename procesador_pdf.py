@@ -2,6 +2,9 @@ import pdfplumber
 import re
 import os
 
+# Importar catálogos SUNAT para conversión de códigos
+from catalogos_sunat import convertir_unidad_medida
+
 # --- FUNCIONES DE LIMPIEZA INTERNAS ---
 def limpiar_moneda(valor):
     if not valor: return 0.00
@@ -122,15 +125,45 @@ def procesar_factura_pdf(ruta_archivo):
                     desc_completa = f"{l[1]} {l[3]}"
                     lista_lineas.append({
                         "cantidad": float(l[0]),
-                        "unidadMedida": "UNIDAD",
+                        "unidadMedida": convertir_unidad_medida("NIU"),  # PDF impreso ya dice UNIDAD, usamos catálogo
                         "descripcion": limpiar_texto(desc_completa), 
                         "valorUnitario": limpiar_moneda(l[2])
                     })
 
+            # --- G. EXTRAER RAZÓN SOCIAL EMISOR (DINÁMICO) ---
+            # En PDFs SUNAT, la estructura es:
+            # Línea 0: "FACTURA ELECTRONICA" o "BOLETA DE VENTA"
+            # Línea 1: Razón Social del Emisor (nombre)
+            # Línea 2: "RUC: XXXXXXXXXXX"
+            # Línea 3: Dirección
+            razon_emisor = ""
+            lineas = text.split('\n')
+            
+            # ESTRATEGIA 1: El nombre está en la línea inmediatamente anterior a "RUC:"
+            for i, linea in enumerate(lineas[:10]):
+                if re.match(r'\s*RUC\s*:\s*\d{11}', linea, re.IGNORECASE):
+                    # La línea anterior debe ser el nombre
+                    if i > 0:
+                        candidato = lineas[i-1].strip()
+                        # Validar que parece un nombre (no dirección, no FACTURA)
+                        if (candidato 
+                            and "FACTURA" not in candidato 
+                            and "BOLETA" not in candidato
+                            and not re.match(r'^(CAL\.|AV\.|JR\.|MZA\.|CALLE)', candidato, re.IGNORECASE)
+                            and len(candidato) > 5):
+                            razon_emisor = candidato
+                    break
+            
+            # ESTRATEGIA 2: Si falla, buscar patrón APELLIDO APELLIDO NOMBRE
+            if not razon_emisor:
+                match = re.search(r'^([A-ZÁÉÍÓÚÑ]+\s+[A-ZÁÉÍÓÚÑ]+\s+[A-ZÁÉÍÓÚÑ]+(?:\s+[A-ZÁÉÍÓÚÑ]+)?)$', text, re.MULTILINE)
+                if match:
+                    razon_emisor = match.group(1).strip()
+
             # --- CONSTRUCCIÓN JSON ---
             return {
                 "factura": {
-                    "razonSocialEmisor": "ROMERO CANCHARI JOSE LUIS",
+                    "razonSocialEmisor": razon_emisor,  # Ahora dinámico, no hardcodeado
                     "direccionEmisor": dir_emisor,
                     "departamento": departamento,
                     "provincia": provincia,

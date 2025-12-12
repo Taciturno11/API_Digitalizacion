@@ -1,0 +1,141 @@
+﻿
+Procesando: pruebaaa.jpeg
+
+[OCR] Inicializando EasyOCR...
+======================================================================
+TEXTO EXTRAIDO POR EASYOCR:
+======================================================================
+[00] FACTURA ELECTRONICA ROMERO CANCHARI JOSE LUIS RUC: 10431552898 CAL. 16 APV. RESID. LAS AMERICAS MZA ZLOTE 21 E001-131 ATE LIMA LIMA
+[01] Fecha de Emisi¾n 30/11/2025 Forma de pago: CrÚdito
+[02] EXACTA OPERADOR LOGISTICO Se±or(es) SOCIEDAD ANONIMA CERRADA RUC 20517650871
+[03] AV. LOS ALGARROBOS COO. LAS
+[04] VERTIENTES MZA H LOTE. 4A Direcci¾n del Receptor de la factura CRUCE DE AVENIDA EL SOL
+[05] CALLE LIMA LIMA VILLA EL
+[06] SALVADOR
+[07] AV. LOS ALGARROBOS coo LAS VERTIENTES MZA H LOTE. 4A Direcci¾n del Cllente CRUCE DE AVENIDA EL SOL Y CALLE LIMA-LIMA-VILLA EL
+[08] SALVADOR
+[09] Tlpo de Moneda SOLES
+[10] OPERACIËN SUJETA AL SPOD Observaci¾n CTACTE BN N.00042038342
+[11] Cantldad Unldad Medlda Descrlpcl¾n Valor Unltarlo
+[12] 28-11-2025-046 SAGA FALABELLA $ A LIMA AREQUIPA 90M3 .00 UNIDAD 4200.00 PENDIENTE ROMERO CANCHARI JOSE LUIS BVZ87O
+[13] Valor de Venta de Operaciones Gratuitas 0.00 Sub Total Ventas sI 4,200.00
+[14] Anticipos 570.00
+[15] Descuentos S/ 0.00
+[16] Valor Venta 514,200.00
+[17] ISC SON: CUATRO MIL NOVECIENTOS CINCUENTA Y SEIS Y 00/100 0.00
+[18] SOLES IGV 5/ 756.00
+[19] Otros Cargos S/ 0.00
+[20] Otros Tributos S/ 0.00
+[21] Monto de redondeo 5/ 0.00
+[22] Importe Total 956.00
+[23] Informacl¾n del crÚdlto
+[24] 5/ 4,757.76 Monto neto pendiente de pago Total de Cuotas
+[25] NP Cuota Fec. Venc NP Cuota Fec. Venc. NP Cuota Fec. Venc Monto Monto Monto
+[26] 01/12/2025 2,100.00 28/12/2025 2,657.76
+[27] Esta es una representaci¾n impresa de 1a factura electr¾nica; generada en el Sistema de SUNAT.Puede
+[28] verificarla utilizando su clave SOL
+======================================================================
+
+[SECCION 1] Procesando CABECERA (EMISOR)...
+    RUC Emisor: 10431552898
+    Numero Factura: E001-131
+    Razon Social Emisor: ROMERO CANCHARI JOSE LUIS
+    Direccion Emisor: CAL. 16 APV. RESID. LAS AMERICAS MZA ZLOTE 21
+    Ubigeo: ATE-LIMA-LIMA
+
+[SECCION 2] Procesando RECEPTOR Y OPERACION...
+    Fecha Emision: 30/11/2025
+    Forma de Pago: Credito
+    Razon Social Receptor: EXACTA OPERADOR LOGISTICO SOCIEDAD ANONIMA CERRADA
+    RUC Receptor: 20517650871
+    Direccion Receptor Factura: AV. LOS ALGARROBOS COO. LAS VERTIENTES MZA H LOTE. 4A CRUCE DE AVENIDA EL SOL CALLE LIMA LIMA VILLA EL SALVADOR
+    Direccion Cliente: AV. LOS ALGARROBOS coo LAS VERTIENTES MZA H LOTE. 4A CRUCE DE AVENIDA EL SOL Y CALLE LIMA-LIMA-VILLA EL SALVADOR
+    Tipo Moneda: SOLES
+    Observacion: CTACTE BN N.00042038342
+
+[SECCION 3] Procesando LINEAS DE FACTURA...
+    Cantidad: 1.0
+    Valor Unitario: 4200.0
+    Descripcion: ...
+
+[SECCION 4] Procesando TOTALES...
+    Venta Gratuita: 0.0
+    Subtotal Venta: 4200.0
+    Anticipo: 0.0
+    Descuento: 0.0
+    Valor Venta: 4200.0
+    ISC: 0.0
+    Descripcion Importe: CUATRO MIL NOVECIENTOS CINCUENTA Y SEIS Y SOLES
+    IGV: 756.0
+    Otros Cargos: 0.0
+    Otros Tributos: 0.0
+    Monto Redondeo: 0.0
+    Importe Total: 4956.0
+
+[SECCION 5] Procesando CUOTAS...
+    Monto Pendiente: 4757.76
+    Cuota 1: 01/12/2025 - 2100.0
+    Cuota 2: 28/12/2025 - 2657.76
+    Total Cuotas: 2
+
+======================================================================
+CONSTRUCCION DE RESPUESTA...
+======================================================================
+
+======================================================================
+RESULTADO FINAL (JSON):
+======================================================================
+{
+  "rucEmisor": 10431552898,
+  "razonSocialEmisor": "ROMERO CANCHARI JOSE LUIS",
+  "direccionEmisor": "CAL. 16 APV. RESID. LAS AMERICAS MZA ZLOTE 21",
+  "distritoEmisor": "ATE",
+  "provinciaEmisor": "LIMA",
+  "departamentoEmisor": "LIMA",
+  "numeroFactura": "E001-131",
+  "fechaEmision": "30/11/2025",
+  "formaPago": "Credito",
+  "rucReceptor": 20517650871,
+  "razonSocialReceptor": "EXACTA OPERADOR LOGISTICO SOCIEDAD ANONIMA CERRADA",
+  "direccionReceptorFactura": "AV. LOS ALGARROBOS COO. LAS VERTIENTES MZA H LOTE. 4A CRUCE DE AVENIDA EL SOL CALLE LIMA LIMA VILLA EL SALVADOR",
+  "direccionCliente": "AV. LOS ALGARROBOS coo LAS VERTIENTES MZA H LOTE. 4A CRUCE DE AVENIDA EL SOL Y CALLE LIMA-LIMA-VILLA EL SALVADOR",
+  "tipoMoneda": "SOLES",
+  "observacion": "CTACTE BN N.00042038342",
+  "lineasFactura": [
+    {
+      "cantidad": 1.0,
+      "unidadMedida": "UNIDAD",
+      "descripcion": "",
+      "valorUnitario": 4200.0
+    }
+  ],
+  "ventaGratuita": 0.0,
+  "subtotalVenta": 4200.0,
+  "anticipo": 0.0,
+  "descuento": 0.0,
+  "valorVenta": 4200.0,
+  "isc": 0.0,
+  "igv": 756.0,
+  "otrosCargos": 0.0,
+  "otrosTributos": 0.0,
+  "montoRedondeo": 0.0,
+  "importeTotal": 4956.0,
+  "descripcionImporteTotal": "CUATRO MIL NOVECIENTOS CINCUENTA Y SEIS Y SOLES",
+  "totalCuota": 2,
+  "cuotas": [
+    {
+      "numeroCuota": 1,
+      "fechaVencimientoCuota": "01/12/2025",
+      "montoCuota": 2100.0
+    },
+    {
+      "numeroCuota": 2,
+      "fechaVencimientoCuota": "28/12/2025",
+      "montoCuota": 2657.76
+    }
+  ],
+  "montoPendiente": 4757.76,
+  "validacion": [
+    "OK"
+  ]
+}
