@@ -14,7 +14,7 @@ app = FastAPI(title="API Digitalización Facturas")
 def home():
     return {"mensaje": "¡La API de Facturas está funcionando correctamente! Ve a /docs para usarla."}
 
-@app.post("/procesar")
+@app.post("/digitalizacionFactura")
 async def procesar_documento(file: UploadFile = File(...)):
     """
     Endpoint que recibe un archivo (PDF, XML, IMG), detecta el tipo

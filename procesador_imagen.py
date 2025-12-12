@@ -149,25 +149,83 @@ def procesar_factura_img(imagen_path: str) -> dict:
             break
     
     # --- DIRECCIONES RECEPTOR Y CLIENTE ---
+    # Las direcciones siempre empiezan con AV., CAL., JR., etc. y terminan con patrón xxx-xxx-xxx
     direccion_receptor_factura = ""
     direccion_cliente = ""
     
-    # Buscar dirección fiscal del receptor (antes de "Direccion del Receptor")
-    match = re.search(r'RUC\s*[-:]?\s*20\d{9}\s+(.+?)(?=Direcci[oó]n)', texto, re.IGNORECASE)
-    if match:
-        dir_fiscal = match.group(1).strip()
-        # Buscar dirección de entrega
-        match2 = re.search(r'Direcci[oó]n\s+del\s+Receptor[^:]*:\s*(.+?)(?=Direcci[oó]n\s+del\s+Cliente|AV\.\s+[A-Z])', texto, re.IGNORECASE)
-        if match2:
-            dir_entrega = match2.group(1).strip()
-            direccion_receptor_factura = f"{dir_fiscal} {dir_entrega}"
-        else:
-            direccion_receptor_factura = dir_fiscal
+    # Buscar índices de líneas clave
+    idx_dir_receptor = -1
+    idx_dir_cliente = -1
+    idx_tipo_moneda = -1
     
-    # Dirección del cliente
-    match = re.search(r'Direcci[oó]n\s+del\s+Cliente\s+(.+?)(?=Tipo\s+de\s+Moneda|$)', texto, re.IGNORECASE)
-    if match:
-        direccion_cliente = match.group(1).strip()
+    for i, linea in enumerate(lineas):
+        linea_lower = linea.lower()
+        if 'direcci' in linea_lower and 'receptor' in linea_lower:
+            idx_dir_receptor = i
+        elif 'direcci' in linea_lower and 'cliente' in linea_lower:
+            idx_dir_cliente = i
+        elif 'tipo de moneda' in linea_lower:
+            idx_tipo_moneda = i
+            break
+    
+    print(f"[DEBUG] idx_dir_receptor={idx_dir_receptor}, idx_dir_cliente={idx_dir_cliente}, idx_tipo_moneda={idx_tipo_moneda}")
+    
+    # Buscar dirección fiscal (después de RUC receptor hasta "Dirección del Receptor")
+    if idx_dir_receptor > 0:
+        partes_receptor = []
+        # Buscar hacia atrás desde "Dirección del Receptor" hasta encontrar RUC o AV./CAL./JR.
+        for i in range(idx_dir_receptor - 1, -1, -1):
+            linea = lineas[i].strip()
+            if re.match(r'^RUC', linea, re.IGNORECASE) or re.match(r'^[-\s]*\d{11}', linea):
+                break
+            if linea and not re.match(r'^(Senor|SOCIEDAD|EXACTA|Forma)', linea, re.IGNORECASE):
+                partes_receptor.insert(0, linea)
+        
+        # Agregar contenido de la línea "Dirección del Receptor" (después de ":")
+        linea_receptor = lineas[idx_dir_receptor]
+        if ':' in linea_receptor:
+            parte_despues = linea_receptor.split(':', 1)[1].strip()
+            if parte_despues:
+                partes_receptor.append(parte_despues)
+        
+        # Agregar líneas después hasta "AV." o "Dirección del Cliente"
+        for i in range(idx_dir_receptor + 1, len(lineas)):
+            linea = lineas[i].strip()
+            if re.match(r'^(AV\.|CAL\.|JR\.)', linea, re.IGNORECASE):
+                break
+            if 'direcci' in linea.lower() and 'cliente' in linea.lower():
+                break
+            if linea:
+                partes_receptor.append(linea)
+        
+        direccion_receptor_factura = ' '.join(partes_receptor)
+    
+    # Dirección del Cliente: desde línea anterior a "Dirección del Cliente" (si es AV./CAL./JR.)
+    # hasta "Tipo de Moneda"
+    if idx_dir_cliente > 0 and idx_tipo_moneda > idx_dir_cliente:
+        partes_cliente = []
+        
+        # Verificar si hay líneas con AV./CAL./JR. ANTES de "Dirección del Cliente"
+        # que pertenecen a la dirección del cliente
+        for i in range(idx_dir_cliente - 1, idx_dir_receptor, -1):
+            linea = lineas[i].strip()
+            if re.match(r'^(AV\.|CAL\.|JR\.)', linea, re.IGNORECASE):
+                # Capturar desde esta línea hasta idx_dir_cliente
+                for j in range(i, idx_dir_cliente):
+                    if lineas[j].strip():
+                        partes_cliente.append(lineas[j].strip())
+                break
+        
+        # Agregar líneas después de "Dirección del Cliente" hasta "Tipo de Moneda"
+        for i in range(idx_dir_cliente + 1, idx_tipo_moneda):
+            linea = lineas[i].strip()
+            if linea:
+                partes_cliente.append(linea)
+        
+        direccion_cliente = ' '.join(partes_cliente)
+    
+    print(f"[DEBUG] direccion_receptor_factura: {direccion_receptor_factura}")
+    print(f"[DEBUG] direccion_cliente: {direccion_cliente}")
     
     # --- TIPO DE MONEDA ---
     tipo_moneda = "SOLES"
